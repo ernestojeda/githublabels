@@ -5,14 +5,15 @@
 # access the source and target repositories.
 # This is how you authorize with the GitHub API.
 # https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line
-GH_TOKEN=
+GH_TOKEN=$1
 
 # The source repository whose labels to copy.
-SRC_GH_USER=venkata-lakshmi-penna
-SRC_GH_REPO=Test-labels
+SRC_GH_USER=$2
+SRC_GH_REPO=$3
 # The target repository to add or update labels.
-TGT_GH_USER=venkata-lakshmi-penna
-TGT_GH_REPO=Project-2
+TGT_GH_USER=$4
+TGT_GH_REPO=$5
+
 
 # ---------------------------------------------------------
 
@@ -22,7 +23,7 @@ GH_AUTH_HEADER="Authorization: Bearer $GH_TOKEN"
 
 # Bash for-loop over JSON array with jq	
 # https://starkandwayne.com/blog/bash-for-loop-over-json-array-using-jq/
-sourceLabelsJson64=$(curl --silent -H "$GH_ACCEPT_HEADER" -H "$GH_AUTH_HEADER" https://api.github.com/repos/${SRC_GH_USER}/${SRC_GH_REPO}/labels | jq '[ .[] | { "name": ".name", "color": ".color", "description": ".description" } ]' | jq -r '.[] | @base64' )
+sourceLabelsJson64=$(curl --silent -H "$GH_ACCEPT_HEADER" -H "$GH_AUTH_HEADER" https://api.github.com/repos/${SRC_GH_USER}/${SRC_GH_REPO}/labels | jq '[ .[] | { "name": .name, "color": .color, "description": .description } ]' | jq -r '.[] | @base64' )
 
 # for each label from source repo,
 # invoke github api to create or update
