@@ -1,3 +1,4 @@
+#! /bin/bash
 # This script uses the GitHub Labels REST API
 # https://developer.github.com/v3/issues/labels/
 
@@ -5,15 +6,15 @@
 # access the source and target repositories.
 # This is how you authorize with the GitHub API.
 # https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line
-vGH_TOKEN=$GH_TOKEN
+
+vGH_TOKEN=${GH_TOKEN}
 
 # The source repository whose labels to copy.
-SRC_GH_USER=$GH_USER
+SRC_GH_USER=${GH_USER}
 SRC_GH_REPO=$1
 # The target repository to add or update labels.
-TGT_GH_USER=$GH_USER
+TGT_GH_USER=${GH_USER}
 TGT_GH_REPO=$2
-
 
 # ---------------------------------------------------------
 
@@ -42,9 +43,10 @@ for sourceLabelJson64 in $sourceLabelsJson64; do
     createdLabelId=$(echo $createLabelResponse | jq -r '.id')
 
     # if label wasn't created maybe it's because it already exists, try to update it
-    if [ "$createdLabelId" == "null" ]
+    if [ "${createdLabelId}" == "null" ]
     then
        updateLabelResponse=$(echo $sourceLabelJson | curl --silent -X PATCH -d @- -H "$GH_ACCEPT_HEADER" -H "$GH_AUTH_HEADER" https://api.github.com/repos/${TGT_GH_USER}/${TGT_GH_REPO}/labels/$(echo $sourceLabelJson | jq -r '.name | @uri'))
+       
        echo "Update label response:\n"$updateLabelResponse"\n"
     else
        echo "Create label response:\n"$createLabelResponse"\n"
