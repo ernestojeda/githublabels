@@ -5,21 +5,21 @@
 # access the source and target repositories.
 # This is how you authorize with the GitHub API.
 # https://help.github.com/en/articles/creating-a-personal-access-token-for-the-command-line
-GH_TOKEN=$1
+vGH_TOKEN=$GH_TOKEN
 
 # The source repository whose labels to copy.
-SRC_GH_USER=$2
-SRC_GH_REPO=$3
+SRC_GH_USER=$GH_USER
+SRC_GH_REPO=$1
 # The target repository to add or update labels.
-TGT_GH_USER=$4
-TGT_GH_REPO=$5
+TGT_GH_USER=$GH_USER
+TGT_GH_REPO=$2
 
 
 # ---------------------------------------------------------
 
 # Headers used in curl commands
 GH_ACCEPT_HEADER="Accept: application/vnd.github.symmetra-preview+json"
-GH_AUTH_HEADER="Authorization: Bearer $GH_TOKEN"
+GH_AUTH_HEADER="Authorization: Bearer $vGH_TOKEN"
 
 # Bash for-loop over JSON array with jq	
 # https://starkandwayne.com/blog/bash-for-loop-over-json-array-using-jq/
