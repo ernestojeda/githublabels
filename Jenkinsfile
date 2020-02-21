@@ -10,9 +10,10 @@ node {
                 } 
      stage('execute shell') {
       for (repo in TGT_GH_REPO) {
+         withCredentials([string(credentialsId: 'gitcred', variable: 'GH_TOKEN')]) {
 	sh """
            bash github-copy-labels.sh $GH_TOKEN $SRC_GH_USER $SRC_GH_REPO $TGT_GH_USER ${repo}"""
 	      }
            }
         }
- 
+ }
