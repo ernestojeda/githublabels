@@ -1,8 +1,6 @@
 def Git_Scm_Url = "https://github.com/venkata-lakshmi-penna/githublabels"
 def SRC_GH_REPO = "Test-labels"
 def TGT_GH_REPO = ["Project-2", "project-3", "project-4", "project-5"]
-
-
 pipeline {
 	agent any
 	 stages {
