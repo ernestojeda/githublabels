@@ -17,11 +17,11 @@ pipeline {
 	        withCredentials([usernamePassword(credentialsId: 'githubcred', passwordVariable: 'GH_TOKEN', usernameVariable: 'GH_USER')]) {
 			for (repo in TGT_GH_REPO) 
 				sh "./github-copy-labels.sh $SRC_GH_REPO ${repo}"
-		}
-		}
-		}  	
-	}
-	 }  
+		       }
+		   }
+	       }  	
+	   }
+      }  
 }
 
 
